@@ -1,0 +1,52 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a055617..5ba7160 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -65,6 +65,47 @@ juce_add_binary_data(AudioPluginData SOURCES
+ set_target_properties(AudioPluginData PROPERTIES
+     POSITION_INDEPENDENT_CODE ON)
+ 
++# begin AAP specifics -->
++
++# They are needed in desktop too, for generate-aap-metadata.
++include_directories(
++        "${AAP_DIR}/include"
++        "${AAP_JUCE_DIR}/modules"
++)
++
++add_definitions([[-DJUCE_PUSH_NOTIFICATIONS_ACTIVITY="com/rmsl/juce/JuceActivity"]])
++target_compile_definitions(PeakEater PUBLIC
++        JUCEAAP_HAVE_AUDIO_PLAYHEAD_NEW_POSITION_INFO=1
++        )
++
++message("AAP_DIR: ${AAP_DIR}")
++message("AAP_JUCE_DIR: ${AAP_JUCE_DIR}")
++juce_add_modules(${AAP_JUCE_DIR}/modules/juceaap_audio_plugin_client)
++
++if (ANDROID)
++
++    # dependencies
++    find_library(log "log")
++    find_library(android "android")
++    find_library(glesv2 "GLESv2")
++    find_library(egl "EGL")
++    set(cpufeatures_lib "cpufeatures")
++    set(oboe_lib "oboe")
++
++    target_include_directories(PeakEater PRIVATE
++            "${ANDROID_NDK}/sources/android/cpufeatures"
++            "${OBOE_DIR}/include"
++            )
++
++    target_link_libraries(PeakEater
++            PRIVATE
++            juceaap_audio_plugin_client
++            )
++
++endif (ANDROID)
++# <-- end Android specifics
++# <-- end AAP specifics
++
+ juce_generate_juce_header(PeakEater)
+ 
+ clap_juce_extensions_plugin(TARGET PeakEater

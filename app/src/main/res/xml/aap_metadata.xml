@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugins xmlns="urn:org.androidaudioplugin.core">
+  <plugin name="AAP PeakEater" category="Effect" author="T-Audio" manufacturer=""
+          unique-id="juceaap:54617065" library="libPeakEater_Standalone.so"
+          entrypoint="GetJuceAAPFactoryStandalone" assets="">
+    <extensions>
+      <extension uri="urn://androidaudioplugin.org/extensions/presets/v1"/>
+    </extensions>
+    <parameters xmlns="urn://androidaudioplugin.org/extensions/parameters">
+      <parameter id="0" name="INPUT" direction="input" minimum="-36.0" maximum="36.0"
+                 default="0.558925449848175" content="other"/>
+      <parameter id="1" name="OUTPUT" direction="input" minimum="-36.0" maximum="36.0"
+                 default="0.558925449848175" content="other"/>
+      <parameter id="2" name="CEILING" direction="input" minimum="-36.0" maximum="0.0"
+                 default="1.0" content="other"/>
+      <parameter id="3" name="IN&lt;-&gt;OUT" direction="input" default="0.0"
+                 minimum="0.0" maximum="1.0" content="other"/>
+      <parameter id="4" name="BYPASS" direction="input" default="0.0" minimum="0.0"
+                 maximum="1.0" content="other"/>
+      <parameter id="5" name="ALGORITHM" direction="input" default="0.0" minimum="0.0"
+                 maximum="5.0" content="other"/>
+      <parameter id="6" name="OVERSAMPLE" direction="input" default="0.0" minimum="0.0"
+                 maximum="4.0" content="other"/>
+    </parameters>
+    <ports>
+      <port direction="output" content="audio" name="Left"/>
+      <port direction="output" content="audio" name="Right"/>
+      <port direction="input" content="audio" name="Left"/>
+      <port direction="input" content="audio" name="Right"/>
+      <port direction="input" content="midi2" name="MIDI input"/>
+    </ports>
+  </plugin>
+</plugins>
