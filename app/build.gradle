@@ -3,17 +3,20 @@ plugins {
     id 'kotlin-android'
 }
 
+kotlin {
+    jvmToolchain(11)
+}
 
 android {
+    namespace = "org.androidaudioplugin.ports.juce.peak_eater"
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "org.androidaudioplugin.ports.juce.peak_meter"
         minSdkVersion    29
         targetSdkVersion 33
         externalNativeBuild {
             cmake {
-                arguments "-DJUCE_DIR=${System.env.JUCE_DIR != null ? System.env.JUCE_DIR : "$projectDir/../modules/JUCE"}", "-DAAP_DIR=${System.env.AAP_DIR != null ? System.env.AAP_DIR : "$projectDir/../external/aap-core"}", "-DAAP_JUCE_DIR=${System.env.AAP_JUCE_DIR != null ? System.env.AAP_JUCE_DIR : "$projectDir/../external/aap-juce"}", "-DANDROID_STL=c++_shared", "-DANDROID_CPP_FEATURES=exceptions rtti"
+                arguments "-DANDROID=1 -DJUCE_DIR=${System.env.JUCE_DIR != null ? System.env.JUCE_DIR : "$projectDir/../modules/JUCE"}", "-DAAP_DIR=${System.env.AAP_DIR != null ? System.env.AAP_DIR : "$projectDir/../external/aap-core"}", "-DAAP_JUCE_DIR=${System.env.AAP_JUCE_DIR != null ? System.env.AAP_JUCE_DIR : "$projectDir/../external/aap-juce"}", "-DANDROID_STL=c++_shared", "-DANDROID_CPP_FEATURES=exceptions rtti"
             }
         }
         proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -30,16 +33,14 @@ android {
     dependencies {
         implementation libs.androidx.core.ktx
         implementation libs.startup.runtime
-        // FIXME: this should not be required, should be another reason that blocks it from loading.
-        implementation libs.libcxx.provider
         implementation libs.aap.core
-        implementation libs.aap.midi.device.service
+        implementation libs.aap.ui.web
     }
 
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
-            version "3.22.1"
+            version libs.versions.cmake.get()
         }
     }
 
@@ -47,6 +48,11 @@ android {
         prefab true
     }
 
-    ndkVersion "$ndk_version"
+    ndkVersion libs.versions.ndk.get()
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 }
 
