@@ -28,15 +28,6 @@
           android:name="org.androidaudioplugin.AudioPluginService.V3#Plugins"
           android:resource="@xml/aap_metadata"/>
     </service>
-    <service android:name="org.androidaudioplugin.midideviceservice.StandaloneAudioPluginMidiDeviceService"
-        android:permission="android.permission.BIND_MIDI_DEVICE_SERVICE"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="android.media.midi.MidiDeviceService" />
-      </intent-filter>
-      <meta-data android:name="android.media.midi.MidiDeviceService"
-          android:resource="@xml/midi_device_info" />
-    </service>
 
     <provider android:name="androidx.startup.InitializationProvider"
         android:authorities="${applicationId}.androidx-startup"
