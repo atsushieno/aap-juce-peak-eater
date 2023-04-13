@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugins xmlns="urn:org.androidaudioplugin.core">
-  <plugin name="AAP PeakEater" category="Effect" author="T-Audio" manufacturer=""
+  <plugin name="PeakEater" category="Effect" author="T-Audio" developer="T-Audio"
           unique-id="juceaap:54617065" library="libPeakEater_Standalone.so"
-          entrypoint="GetJuceAAPFactoryStandalone" assets="">
+          entrypoint="GetJuceAAPFactoryStandalone">
     <extensions>
-      <extension uri="urn://androidaudioplugin.org/extensions/presets/v1"/>
+      <extension uri="urn://androidaudioplugin.org/extensions/plugin-info/v2"/>
+      <extension uri="urn://androidaudioplugin.org/extensions/presets/v2"/>
+      <extension uri="urn://androidaudioplugin.org/extensions/state/v2"/>
+      <extension uri="urn://androidaudioplugin.org/extensions/midi2/v2"/>
+      <extension uri="urn://androidaudioplugin.org/extensions/gui/v2"/>
     </extensions>
     <parameters xmlns="urn://androidaudioplugin.org/extensions/parameters">
       <parameter id="0" name="INPUT" direction="input" minimum="-36.0" maximum="36.0"
@@ -14,14 +18,14 @@
                  default="0.558925449848175" content="other"/>
       <parameter id="2" name="CEILING" direction="input" minimum="-36.0" maximum="0.0"
                  default="1.0" content="other"/>
-      <parameter id="3" name="IN&lt;-&gt;OUT" direction="input" default="0.0"
-                 minimum="0.0" maximum="1.0" content="other"/>
-      <parameter id="4" name="BYPASS" direction="input" default="0.0" minimum="0.0"
-                 maximum="1.0" content="other"/>
-      <parameter id="5" name="ALGORITHM" direction="input" default="0.0" minimum="0.0"
-                 maximum="5.0" content="other"/>
-      <parameter id="6" name="OVERSAMPLE" direction="input" default="0.0" minimum="0.0"
-                 maximum="4.0" content="other"/>
+      <parameter id="3" name="IN&lt;-&gt;OUT" direction="input" minimum="0.0"
+                 maximum="1.0" default="0.0" content="other"/>
+      <parameter id="4" name="BYPASS" direction="input" minimum="0.0" maximum="1.0"
+                 default="0.0" content="other"/>
+      <parameter id="5" name="ALGORITHM" direction="input" minimum="0.0" maximum="5.0"
+                 default="0.0" content="other"/>
+      <parameter id="6" name="OVERSAMPLE" direction="input" minimum="0.0" maximum="4.0"
+                 default="0.0" content="other"/>
     </parameters>
     <ports>
       <port direction="output" content="audio" name="Left"/>
