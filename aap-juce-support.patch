@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index a055617..9211a3a 100644
+index a055617..d68618a 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -65,6 +65,48 @@ juce_add_binary_data(AudioPluginData SOURCES
+@@ -65,6 +65,51 @@ juce_add_binary_data(AudioPluginData SOURCES
  set_target_properties(AudioPluginData PROPERTIES
      POSITION_INDEPENDENT_CODE ON)
  
@@ -21,7 +21,7 @@ index a055617..9211a3a 100644
 +
 +message("AAP_DIR: ${AAP_DIR}")
 +message("AAP_JUCE_DIR: ${AAP_JUCE_DIR}")
-+juce_add_modules(${AAP_JUCE_DIR}/aap-modules/juceaap_audio_plugin_client)
++juce_add_modules(${AAP_JUCE_DIR}/aap-modules/aap_audio_processors)
 +
 +if (ANDROID)
 +
@@ -38,12 +38,15 @@ index a055617..9211a3a 100644
 +            "${OBOE_DIR}/include"
 +            )
 +
-+    add_compile_definitions([[JUCE_DONT_AUTO_OPEN_MIDI_DEVICES_ON_MOBILE=1]])
++    add_compile_definitions(
++	[[JUCE_ANDROID=1]]
++	[[JUCE_DONT_AUTO_OPEN_MIDI_DEVICES_ON_MOBILE=1]]
++    )
 +endif (ANDROID)
 +
 +target_link_libraries(PeakEater
 +        PRIVATE
-+        juceaap_audio_plugin_client
++        aap_audio_processors
 +        )
 +# <-- end Android specifics
 +# <-- end AAP specifics
